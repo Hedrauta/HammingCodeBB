@@ -31,4 +31,4 @@ function hamming_encode(_dataBits:string) {
   return build
 }
 
-console.log(...hamming_encode(test.data()))
+console.log(hamming_encode(test.data()).reduce(function(a,e,i) {if (e=="x") a.push(i); return a;}, []));
