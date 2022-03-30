@@ -14,8 +14,21 @@ var test = {
   data(){return this.binary_value().padStart(Math.pow(2, this.binary_pBits()) - (1+this.binary_pBits()), "0")}
 }
 
+function hamming_encode(_dataBits:string) {
+  let sum_parity: number = sumOfParityBits(_dataBits.length)
+  let data = _dataBits.split("")
+  let build = []
+  for (var i = 1; i<sum_parity; i++){
+    if (i==1) {
+      build.push("x","x");
+      build.push(...data.splice(0, 1))
+    }
+    else {
+      build.push("x");
+      build.push(...data.splice(0, Math.pow(2, i)-1))
+    }
+  }
+  return build
+}
 
-
-console.log(
-  test.value, test.binary_value(), test.binary_pBits(), test.data()
-  )
+console.log(...hamming_encode(test.data()))
